@@ -1,5 +1,6 @@
 package com.example.psi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -8,13 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.psi.model.dto.CustomerDto;
 import com.example.psi.model.dto.DepartmentDto;
 import com.example.psi.model.dto.EmployeeDto;
 import com.example.psi.model.dto.EmployeePageDto;
+import com.example.psi.model.po.Customer;
 import com.example.psi.model.po.Department;
 import com.example.psi.model.po.Employee;
 import com.example.psi.repository.DepartmentRepository;
 import com.example.psi.repository.EmployeeRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EmployeeService {
@@ -83,5 +88,13 @@ public class EmployeeService {
 		Page<Employee> employeePage = employeeRepository.findAll(pageable);
 		Page<EmployeeDto> employeePageDto = employeePage.map(employee -> modelMapper.map(employee, EmployeeDto.class));
 		return new EmployeePageDto(employeePageDto);
+	}
+	
+	// 全部查詢
+	public List<EmployeeDto> findAll() {
+		List<Employee> employees = employeeRepository.findAll();
+		return employees.stream()
+						  .map(employee -> modelMapper.map(employee, EmployeeDto.class))
+						  .toList();
 	}
 }

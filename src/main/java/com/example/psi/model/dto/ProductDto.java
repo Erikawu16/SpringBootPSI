@@ -16,5 +16,5 @@ public class ProductDto {
 	private Integer cost; // 商品成本
 	private Integer price; // 商品定價
 	
-	private Set<PurchaseItem> purchaseItems = new LinkedHashSet<>();
+	private Set<PurchaseItemDto> purchaseItems = new LinkedHashSet<>();
 }

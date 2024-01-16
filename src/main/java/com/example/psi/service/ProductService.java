@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.psi.model.dto.ProductDto;
 import com.example.psi.model.po.Product;
+import com.example.psi.model.vo.Inventory;
+import com.example.psi.model.vo.ProductSales;
 import com.example.psi.repository.ProductRepository;
 
 @Service
@@ -63,6 +65,18 @@ public class ProductService {
 		return products.stream()
 						  .map(product -> modelMapper.map(product, ProductDto.class))
 						  .toList();
+	}
+	
+	public Inventory findInventoryById(Long id) {
+		return productRepository.findInventoryById(id);
+	}
+	
+	public List<Inventory> queryInventory() {
+		return productRepository.queryInventory();
+	}
+	
+	public List<ProductSales> queryProductSales() {
+		return productRepository.queryProductSales();
 	}
 	
 }
